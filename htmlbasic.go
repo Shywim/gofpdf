@@ -178,10 +178,13 @@ func (html *HTMLBasicType) Write(lineHt float64, htmlStr string) {
 		case 'O':
 			switch el.Str {
 			case "b":
+			case "strong":
 				setStyle(1, 0, 0)
 			case "i":
+			case "em":
 				setStyle(0, 1, 0)
 			case "u":
+			case "ins":
 				setStyle(0, 0, 1)
 			case "br":
 				html.pdf.Ln(lineHt)
@@ -203,10 +206,13 @@ func (html *HTMLBasicType) Write(lineHt float64, htmlStr string) {
 		case 'C':
 			switch el.Str {
 			case "b":
+			case "strong":
 				setStyle(-1, 0, 0)
 			case "i":
+			case "em":
 				setStyle(0, -1, 0)
 			case "u":
+			case "ins":
 				setStyle(0, 0, -1)
 			case "center":
 				html.pdf.Ln(lineHt)
