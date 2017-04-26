@@ -1566,6 +1566,11 @@ func (f *Fpdf) GetFontDesc(familyStr, styleStr string) FontDescType {
 	return f.fonts[getFontKey(familyStr, styleStr)].Desc
 }
 
+// Expose current font definition
+func (f *Fpdf) GetCurrentFont() fontDefType {
+	return f.currentFont
+}
+
 // SetFont sets the font used to print character strings. It is mandatory to
 // call this method at least once before printing text or the resulting
 // document will not be valid.
