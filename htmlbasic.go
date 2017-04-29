@@ -162,6 +162,7 @@ func (html *HTMLBasicType) Write(lineHt float64, htmlStr string) {
 	list := HTMLBasicTokenize(htmlStr)
 	var ok bool
 	alignStr := "L"
+	justBrokeLine := true
 	for _, el := range list {
 		switch el.Cat {
 		case 'T':
@@ -188,15 +189,22 @@ func (html *HTMLBasicType) Write(lineHt float64, htmlStr string) {
 				setStyle(0, 0, 1)
 			case "br":
 				html.pdf.Ln(lineHt)
+				justBrokeLine = true
 			case "center":
-				html.pdf.Ln(lineHt)
 				alignStr = "C"
+				if justBrokeLine == false {
+					html.pdf.Ln(lineHt)
+				}
 			case "right":
-				html.pdf.Ln(lineHt)
 				alignStr = "R"
+				if justBrokeLine == false {
+					html.pdf.Ln(lineHt)
+				}
 			case "left":
-				html.pdf.Ln(lineHt)
 				alignStr = "L"
+				if justBrokeLine == false {
+					html.pdf.Ln(lineHt)
+				}
 			case "a":
 				hrefStr, ok = el.Attr["href"]
 				if !ok {
@@ -220,7 +228,11 @@ func (html *HTMLBasicType) Write(lineHt float64, htmlStr string) {
 			case "right":
 				html.pdf.Ln(lineHt)
 				alignStr = "L"
+			case "p":
+				html.pdf.Ln(lineHt)
+				justBrokeLine = true
 			}
 		}
+		justBrokeLine = false
 	}
 }
